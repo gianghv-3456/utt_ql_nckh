@@ -7,10 +7,10 @@
     <string name="forgot_password">Quên mật khẩu?</string>
     <string name="don_t_have_an_account">Chưa có tài khoản?</string>
     <string name="sign_up">Đăng ký</string>
-    <string name="welcome">Welcome Back</string>
+    <string name="welcome">Quản lý NCKH</string>
     <string name="sign_in">Đăng nhập</string>
-    <string name="confirm_password_hint">Xác nhận mật khẩu</string>
-    <string name="name_hint">Tên</string>
+    <string name="confirm_password_hint">Nhắc lại mật khẩu</string>
+    <string name="name_hint">Họ và Tên</string>
     <string name="have_an_account">Đã có tài khoản?</string>
     <string name="create_account">Đăng Ký Tài Khoản</string>
 </resources>

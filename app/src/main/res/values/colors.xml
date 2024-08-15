@@ -27,4 +27,7 @@
 
     <color name="blue_dark">#2196F3</color>
     <color name="blue_light">#03A9F4</color>
+
+    <color name="yellow_light">#deea98</color>
+    <color name="yellow_light_2">#fafcef</color>
 </resources>

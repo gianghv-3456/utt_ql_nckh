@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/projectFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.gianghv.android.views.main.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/projectFragment"
+        android:name="com.gianghv.android.views.main.ProjectFragment"
+        android:label="ProjectFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.gianghv.android.views.main.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/inChargeFragment"
+        android:name="com.gianghv.android.views.main.InChargeFragment"
+        android:label="InChargeFragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.gianghv.android.views.main.HistoryFragment"
+        android:label="HistoryFragment" />
 </navigation>

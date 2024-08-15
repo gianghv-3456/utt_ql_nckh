@@ -7,4 +7,6 @@ object AppConstants {
 
     const val PREF_NAME = "room_picker_prefs"
     const val KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN"
+
+    const val TOAST_DURATION = 1000
 }

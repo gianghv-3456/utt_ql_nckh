@@ -1,16 +1,17 @@
 package com.gianghv.android.views.signin
 
+import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.gianghv.android.MainActivity
 import com.gianghv.android.R
 import com.gianghv.android.base.BaseFragment
 import com.gianghv.android.databinding.FragmentSignInBinding
 import com.gianghv.android.util.app.AppUtils
+import com.gianghv.android.views.AuthActivity
 import com.gianghv.android.views.common.AuthViewModel
 import com.gianghv.android.views.common.BGType
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,12 +22,12 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     override val layoutRes: Int = R.layout.fragment_sign_in
 
-    private var activity: MainActivity? = null
+    private var activity: AuthActivity? = null
 
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun init() {
-        activity = requireActivity() as MainActivity
+        activity = requireActivity() as AuthActivity
     }
 
     override fun setUp() {
@@ -44,9 +45,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 onClickLogin()
             }
 
-            layoutForgotPassword.setOnClickListener {
-            }
-
             layoutSignUp.setOnClickListener {
                 navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
             }
@@ -54,7 +52,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
         lifecycleScope.launch {
             authViewModel.responseMessage.collect {
-                activity?.showMessage(requireContext(), it.message, it.bgType)
+                activity?.showMessage(it.message, it.bgType)
             }
         }
         lifecycleScope.launch {
@@ -64,19 +62,21 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun onClickLogin() {
         activity?.hideKeyboard()
         val email = binding.edtEmail.text?.trim().toString()
         val pass = binding.edtPassword.text?.trim().toString()
         if (!AppUtils.isValidatedEmail(email)) {
-            activity?.showMessage(requireContext(), "Email không hợp lệ!", BGType.BG_TYPE_ERROR)
+            activity?.showMessage("Email không hợp lệ!", BGType.BG_TYPE_ERROR)
             binding.edtEmail.setText("")
             return
         }
         if (!AppUtils.isValidatedPassword(pass)) {
-            activity?.showMessage(requireContext(), "Mật khẩu không hợp lệ!", BGType.BG_TYPE_ERROR)
+            activity?.showMessage("Mật khẩu không hợp lệ!", BGType.BG_TYPE_ERROR)
             binding.edtPassword.setText("")
             return
         }
+        navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
     }
 }
