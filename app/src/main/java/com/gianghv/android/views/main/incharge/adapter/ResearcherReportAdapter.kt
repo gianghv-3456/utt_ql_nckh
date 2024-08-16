@@ -1,0 +1,50 @@
+package com.gianghv.android.views.main.incharge.adapter
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.gianghv.android.databinding.ItemReportResearcherBinding
+import com.gianghv.android.domain.ResearcherReport
+import com.gianghv.android.util.ext.setHyperLink
+import com.gianghv.android.util.ext.showDateDMY
+
+class ResearcherReportAdapter : RecyclerView.Adapter<ResearcherReportAdapter.ViewHolder>() {
+    private val reports = mutableListOf<ResearcherReport>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(data: List<ResearcherReport>?) {
+        reports.clear()
+        if (data != null) {
+            reports.addAll(data)
+        }
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(val binding: ItemReportResearcherBinding): RecyclerView.ViewHolder(binding.root) {
+        companion object{
+            fun bind(inflater: LayoutInflater): ItemReportResearcherBinding {
+                return ItemReportResearcherBinding.inflate(inflater)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return ViewHolder(ViewHolder.bind(inflater))
+    }
+
+    override fun getItemCount(): Int {
+        return reports.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val binding = holder.binding
+        val item = reports[position]
+        binding.textReportTitle.text = item.title
+        binding.textReportContent.text = item.content
+        binding.textReportDate.showDateDMY(item.date)
+        binding.textReporter.text = item.reporter.name
+        binding.textFileName.setHyperLink(item.file.title, item.file.url)
+    }
+}

@@ -10,6 +10,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel : ViewModel() {
 
@@ -28,6 +29,17 @@ open class BaseViewModel : ViewModel() {
 
     private val _isLoading = MutableSharedFlow<Boolean>()
     val isLoading: SharedFlow<Boolean> = _isLoading
+
+    fun runFlow(
+        context: CoroutineContext,
+        block: suspend () -> Unit
+    ) {
+        job = viewModelScope.launch(context + exceptionHandler) {
+            showLoading(true)
+            block.invoke()
+            showLoading(false)
+        }
+    }
 
     suspend fun <T> handleResponse(
         response: Response<T>,

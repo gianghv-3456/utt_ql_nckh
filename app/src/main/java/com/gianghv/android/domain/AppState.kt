@@ -5,4 +5,6 @@ object AppState {
     var userId: String = ""
     var name: String = ""
     var firstAppOpen: Boolean = false
+    var userRole: UserRole = UserRole.RESEARCHER
+
 }

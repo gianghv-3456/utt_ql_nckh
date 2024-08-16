@@ -2,6 +2,7 @@ package com.gianghv.android.views.signup
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gianghv.android.R
@@ -16,7 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
+class SignUpFragment : BaseFragment<FragmentSignUpBinding, AuthViewModel>() {
+    override val viewModel: AuthViewModel by viewModels()
 
     override val layoutRes: Int = R.layout.fragment_sign_up
 
@@ -51,6 +53,12 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             activity?.showLoading(isShow = it)
         }
     }
+
+    override fun initData() {
+
+    }
+
+    override fun inflateViewBinding(inflater: LayoutInflater) = FragmentSignUpBinding.inflate(inflater)
 
     private fun openPickDate(onPicked: (String) -> Unit) {
         val c = Calendar.getInstance()
@@ -102,7 +110,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             email = email,
             password = pass,
             birthday = birthday,
-            role = if (binding.rbNCS.isChecked) UserRole.NCS else UserRole.GVHD
+            role = if (binding.rbNCS.isChecked) UserRole.RESEARCHER else UserRole.SUPERVISOR
         )
         navigate(SignUpFragmentDirections.actionSignUpFragmentToExtendRegisterFragment(value))
     }

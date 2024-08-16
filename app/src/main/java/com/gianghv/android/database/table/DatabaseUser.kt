@@ -12,13 +12,3 @@ data class DatabaseUser(
     val email: String,
     val role: String
 )
-
-fun DatabaseUser.asDomainModel(): User {
-    return User(id, name, email, role)
-}
-
-fun List<DatabaseUser>.asDomainModel(): List<User> {
-    return map {
-        User(it.id, it.name, it.email, it.role)
-    }
-}

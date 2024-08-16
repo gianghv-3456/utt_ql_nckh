@@ -1,0 +1,11 @@
+package com.gianghv.android.domain
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class SupervisorComment(
+    val id: Int,
+    val content: String,
+    val userName: String
+): Parcelable

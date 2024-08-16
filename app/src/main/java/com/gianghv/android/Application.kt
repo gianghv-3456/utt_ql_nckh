@@ -1,6 +1,7 @@
 package com.gianghv.android
 
 import android.app.Application
+import com.gianghv.android.repository.FakeData
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -9,6 +10,7 @@ class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FakeData.fakeData()
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
