@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.gianghv.android.base.BaseViewModel
 import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.Project
+import com.gianghv.android.domain.ProjectState
+import com.gianghv.android.domain.ResearcherReport
 import com.gianghv.android.repository.ProjectRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +27,24 @@ class InChargeViewModel @Inject constructor(
                 _inCharge.postValue(it)
             }
         }
+    }
+
+    fun addReport(report: ResearcherReport) {
+        runFlow(Dispatchers.IO) {
+            projectRepository.addResearcherReport(report)
+        }
+    }
+
+    fun cancelProject() {
+        _inCharge.value = inCharge.value?.copy(state = ProjectState.CANCELLED)
+    }
+
+    fun pauseProject() {
+        _inCharge.value = inCharge.value?.copy(state = ProjectState.PAUSED)
+    }
+
+    fun resumeProject() {
+        _inCharge.value = inCharge.value?.copy(state = ProjectState.IN_PROGRESS)
     }
 }
 

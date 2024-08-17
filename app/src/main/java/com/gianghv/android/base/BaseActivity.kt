@@ -4,10 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.gianghv.android.util.app.AppConstants.TOAST_DURATION
 import com.gianghv.android.views.common.BGType
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
@@ -67,6 +72,14 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
             BGType.BG_TYPE_ERROR ->
                 Toasty.error(context, message, TOAST_DURATION, true).show()
+        }
+    }
+
+    fun <T> collectLifecycleFlow(flow: Flow<T>, collect: (T) -> Unit) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                flow.collect(collect)
+            }
         }
     }
 }

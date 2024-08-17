@@ -1,19 +1,22 @@
 package com.gianghv.android.views.main.incharge
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gianghv.android.R
 import com.gianghv.android.base.BaseFragment
 import com.gianghv.android.databinding.FragmentInChargeBinding
 import com.gianghv.android.domain.UserRole
-import com.gianghv.android.util.ext.getStateTagBackground
 import com.gianghv.android.util.ext.getStateName
+import com.gianghv.android.util.ext.getStateTagBackground
 import com.gianghv.android.util.ext.gone
 import com.gianghv.android.util.ext.show
 import com.gianghv.android.views.MainActivity
+import com.gianghv.android.views.create.AddActivity
 import com.gianghv.android.views.main.incharge.adapter.DocumentAdapter
 import com.gianghv.android.views.main.incharge.adapter.ResearcherReportAdapter
 import com.gianghv.android.views.main.incharge.viewmodel.InChargeViewModel
@@ -101,5 +104,59 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
             binding.fab.text = fabType!!.getText()
             binding.fab.iconTint = resources.getColorStateList(fabType!!.getTextColor())
         }
+
+        binding.fab.setOnClickListener {
+            when (fabType) {
+                InChargeFAB.NEW_REPORT -> {
+                    addReport()
+                }
+
+                InChargeFAB.PAUSE -> {
+                    pauseProject()
+                }
+
+                InChargeFAB.RESUME -> {
+                    resumeProject()
+                }
+
+                InChargeFAB.CANCEL -> {
+                    cancelProject()
+                }
+
+                InChargeFAB.REVIEW -> TODO()
+                InChargeFAB.MARK_FINISH -> TODO()
+                null -> TODO()
+            }
+        }
+    }
+
+    private fun resumeProject() {
+        viewModel.resumeProject()
+    }
+
+    private fun pauseProject() {
+        viewModel.pauseProject()
+    }
+
+    private fun addReport() {
+        Intent(activity, AddActivity::class.java).apply {
+            putExtra("type", AddActivity.TYPE_ADD_REPORT)
+            startActivity(this)
+        }
+    }
+
+    private fun cancelProject() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Hủy dự án")
+            setMessage("Bạn có chắc chắn muốn hủy dự án này?")
+            setPositiveButton("Có") { _, _ ->
+                viewModel.cancelProject()
+            }
+            setNeutralButton("Không") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+        viewModel.cancelProject()
     }
 }

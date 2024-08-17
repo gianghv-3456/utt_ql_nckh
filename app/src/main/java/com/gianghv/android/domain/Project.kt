@@ -8,7 +8,7 @@ data class Project(
     val id: Int,
     val title: String,
     val description: String,
-    val state: ProjectState,
+    var state: ProjectState,
     val researcher: List<Researcher>,
     val supervisor: List<Supervisor>,
     val documents: List<Document>,

@@ -2,6 +2,7 @@ package com.gianghv.android.repository
 
 import com.gianghv.android.domain.Project
 import com.gianghv.android.domain.ProjectState
+import com.gianghv.android.domain.ResearcherReport
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import timber.log.Timber
@@ -54,5 +55,9 @@ class ProjectRepositoryImpl : ProjectRepository {
             .filter { project -> project.researcher.any { it.id == userId } }
         Timber.d("get projects Researcher $result")
         return flowOf(result)
+    }
+
+    override suspend fun addResearcherReport(report: ResearcherReport) {
+        FakeData.reports.add(report)
     }
 }
