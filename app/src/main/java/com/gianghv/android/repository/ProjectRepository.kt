@@ -4,6 +4,9 @@ import com.gianghv.android.domain.Project
 import kotlinx.coroutines.flow.Flow
 
 interface ProjectRepository {
-    suspend fun getInCharge(): Flow<List<Project>>
-
+    suspend fun getInChargeResearcher(userId: Int): Flow<Project?>
+    suspend fun getInChargeSupervisor(userId: Int): Flow<List<Project>>
+    suspend fun getAllProject(): Flow<List<Project>>
+    suspend fun getProjectHistorySupervisor(userId: Int): Flow<List<Project>>
+    suspend fun getProjectHistoryResearcher(userId: Int): Flow<List<Project>>
 }

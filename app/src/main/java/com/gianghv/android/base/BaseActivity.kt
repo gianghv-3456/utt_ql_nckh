@@ -9,12 +9,10 @@ import com.gianghv.android.util.app.AppConstants.TOAST_DURATION
 import com.gianghv.android.views.common.BGType
 import es.dmoral.toasty.Toasty
 
-abstract class BaseActivity<B : ViewBinding, V : BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     private var _binding: B? = null
     val binding get() = _binding!!
-
-    protected abstract val viewModel: V
 
     private var loadingDialog: ProgressDialog? = null
 

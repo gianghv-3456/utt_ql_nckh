@@ -14,6 +14,10 @@ data class Supervisor(
     val title: String,
     val major: String
 ) : User(
-    id, name, email, role, dob
-), Parcelable
-
+    id,
+    name,
+    email,
+    role,
+    dob
+),
+    Parcelable

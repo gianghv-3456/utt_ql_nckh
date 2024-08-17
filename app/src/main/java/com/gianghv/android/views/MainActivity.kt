@@ -1,18 +1,15 @@
 package com.gianghv.android.views
 
 import android.content.Context
-import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.gianghv.android.R
 import com.gianghv.android.base.BaseActivity
 import com.gianghv.android.databinding.ActivityMainBinding
-import com.gianghv.android.views.common.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, AuthViewModel>() {
-    override val viewModel: AuthViewModel by viewModels()
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun createBinding() = ActivityMainBinding.inflate(layoutInflater)
 

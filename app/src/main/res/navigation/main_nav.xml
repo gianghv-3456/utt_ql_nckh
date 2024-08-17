@@ -6,11 +6,11 @@
     app:startDestination="@id/inChargeFragment">
     <fragment
         android:id="@+id/projectFragment"
-        android:name="com.gianghv.android.views.main.ProjectFragment"
+        android:name="com.gianghv.android.views.main.project.ProjectFragment"
         android:label="ProjectFragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.gianghv.android.views.main.project.ProfileFragment"
+        android:name="com.gianghv.android.views.main.ProfileFragment"
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/inChargeFragment"
@@ -18,6 +18,6 @@
         android:label="InChargeFragment" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.gianghv.android.views.main.HistoryFragment"
+        android:name="com.gianghv.android.views.main.history.HistoryFragment"
         android:label="HistoryFragment" />
 </navigation>

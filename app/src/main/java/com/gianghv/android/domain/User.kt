@@ -9,5 +9,5 @@ open class User(
     open val name: String,
     open val email: String,
     open val role: String,
-    open val dob: String,
+    open val dob: String
 ) : Parcelable

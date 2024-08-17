@@ -17,8 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding, AuthViewModel>() {
-    override val viewModel: AuthViewModel by viewModels()
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
+    val viewModel: AuthViewModel by viewModels()
 
     override val layoutRes: Int = R.layout.fragment_sign_up
 
@@ -34,7 +34,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, AuthViewModel>() {
         binding.apply {
             btnNext.setOnClickListener {
                 onClickNext()
-
             }
             layoutTitle.setOnClickListener {
                 findNavController().popBackStack()
@@ -55,7 +54,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, AuthViewModel>() {
     }
 
     override fun initData() {
-
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater) = FragmentSignUpBinding.inflate(inflater)

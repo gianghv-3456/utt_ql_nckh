@@ -8,6 +8,7 @@ import com.gianghv.android.databinding.ItemReportResearcherBinding
 import com.gianghv.android.domain.ResearcherReport
 import com.gianghv.android.util.ext.setHyperLink
 import com.gianghv.android.util.ext.showDateDMY
+import es.dmoral.toasty.Toasty
 
 class ResearcherReportAdapter : RecyclerView.Adapter<ResearcherReportAdapter.ViewHolder>() {
     private val reports = mutableListOf<ResearcherReport>()
@@ -21,8 +22,8 @@ class ResearcherReportAdapter : RecyclerView.Adapter<ResearcherReportAdapter.Vie
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ItemReportResearcherBinding): RecyclerView.ViewHolder(binding.root) {
-        companion object{
+    class ViewHolder(val binding: ItemReportResearcherBinding) : RecyclerView.ViewHolder(binding.root) {
+        companion object {
             fun bind(inflater: LayoutInflater): ItemReportResearcherBinding {
                 return ItemReportResearcherBinding.inflate(inflater)
             }
@@ -46,5 +47,6 @@ class ResearcherReportAdapter : RecyclerView.Adapter<ResearcherReportAdapter.Vie
         binding.textReportDate.showDateDMY(item.date)
         binding.textReporter.text = item.reporter.name
         binding.textFileName.setHyperLink(item.file.title, item.file.url)
+        binding.textFileName.setOnClickListener { Toasty.info(holder.itemView.context, item.file.url).show() }
     }
 }

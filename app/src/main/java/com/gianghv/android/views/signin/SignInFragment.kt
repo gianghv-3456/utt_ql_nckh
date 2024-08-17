@@ -14,16 +14,14 @@ import com.gianghv.android.base.BaseFragment
 import com.gianghv.android.databinding.FragmentSignInBinding
 import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.UserRole
-import com.gianghv.android.util.app.AppUtils
 import com.gianghv.android.views.AuthActivity
 import com.gianghv.android.views.common.AuthViewModel
-import com.gianghv.android.views.common.BGType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment<FragmentSignInBinding, AuthViewModel>() {
-    override val viewModel: AuthViewModel by viewModels()
+class SignInFragment : BaseFragment<FragmentSignInBinding>() {
+    private val viewModel: AuthViewModel by viewModels()
 
     override val layoutRes: Int = R.layout.fragment_sign_in
 
@@ -91,25 +89,28 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, AuthViewModel>() {
 //        }
         val signInResult = authViewModel.signIn(email, pass)
 
-        when(signInResult) {
-            UserRole.RESEARCHER -> {
-                AppState.userRole = UserRole.RESEARCHER
-                AppState.logined = true
-                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
-            }
-            UserRole.SUPERVISOR -> {
-                AppState.userRole = UserRole.SUPERVISOR
-                AppState.logined = true
-                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
-            }
-            UserRole.ADMIN -> {
-                AppState.userRole = UserRole.ADMIN
-                AppState.logined = true
-                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
-            }
-            else -> {
-                activity?.showMessage("Tài khoản không tồn tại!", BGType.BG_TYPE_ERROR)
-            }
-        }
+//        when(signInResult) {
+//            UserRole.RESEARCHER -> {
+//                AppState.userRole = UserRole.RESEARCHER
+//                AppState.logined = true
+//                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
+//            }
+//            UserRole.SUPERVISOR -> {
+//                AppState.userRole = UserRole.SUPERVISOR
+//                AppState.logined = true
+//                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
+//            }
+//            UserRole.ADMIN -> {
+//                AppState.userRole = UserRole.ADMIN
+//                AppState.logined = true
+//                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
+//            }
+//            else -> {
+//                activity?.showMessage("Tài khoản không tồn tại!", BGType.BG_TYPE_ERROR)
+//            }
+//        }
+        AppState.userRole = UserRole.RESEARCHER
+        AppState.logined = true
+        navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
     }
 }

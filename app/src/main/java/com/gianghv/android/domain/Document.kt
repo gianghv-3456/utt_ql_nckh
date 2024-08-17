@@ -8,4 +8,4 @@ data class Document(
     val id: Int,
     val title: String,
     val url: String
-): Parcelable
+) : Parcelable

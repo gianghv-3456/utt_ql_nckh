@@ -6,13 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-) : BaseViewModel() {
+class AuthViewModel @Inject constructor() : BaseViewModel() {
     fun signIn(userName: String, password: String): UserRole? {
-        if (userName == "researcher" && password == "123456")
+        if (userName == "researcher" && password == "123456") {
             return UserRole.RESEARCHER
-        if (userName == "supervisor" && password == "123456")
+        }
+        if (userName == "supervisor" && password == "123456") {
             return UserRole.SUPERVISOR
+        }
         return null
     }
 }

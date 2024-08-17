@@ -14,4 +14,4 @@ data class Project(
     val documents: List<Document>,
     val reports: List<ResearcherReport>,
     val score: Float?
-): Parcelable
+) : Parcelable

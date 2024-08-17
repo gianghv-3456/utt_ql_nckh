@@ -1,5 +1,6 @@
 package com.gianghv.android.repository
 
+import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.Document
 import com.gianghv.android.domain.Project
 import com.gianghv.android.domain.ProjectState
@@ -19,13 +20,51 @@ object FakeData {
     val comments = mutableListOf<SupervisorComment>()
 
     fun fakeData() {
-        val researcher = Researcher(1, name = "Hoang Van A", "hoangvana@gmail.com", UserRole.RESEARCHER.toString().lowercase(), "08/06/2002", "CT050413", "CT5D", "CNTT" )
-        val researcher2 = Researcher(2, name = "Hoang Van B", "hoangvana@gmail.com", UserRole.RESEARCHER.toString().lowercase(), "08/06/2002", "CT050413", "CT5D", "CNTT" )
+        AppState.userId = 1
+
+        val researcher = Researcher(
+            1,
+            name = "Hoang Van A",
+            "hoangvana@gmail.com",
+            UserRole.RESEARCHER.toString().lowercase(),
+            "08/06/2002",
+            "CT050413",
+            "CT5D",
+            "CNTT"
+        )
+        val researcher2 = Researcher(
+            2,
+            name = "Hoang Van B",
+            "hoangvana@gmail.com",
+            UserRole.RESEARCHER.toString().lowercase(),
+            "08/06/2002",
+            "CT050413",
+            "CT5D",
+            "CNTT"
+        )
         researchers.add(researcher)
         researchers.add(researcher2)
 
-        val supervisor = Supervisor(3, name = "Tran Van V", "hoangvana@gmail.com", UserRole.SUPERVISOR.toString().lowercase(), "08/06/2002", "CT050413", "PhD", "CNTT" )
-        val supervisor2 = Supervisor(4, name = "Tran Van W", "hoangvana@gmail.com", UserRole.SUPERVISOR.toString().lowercase(), "08/06/2002", "CT050413", "PhD", "CNTT" )
+        val supervisor = Supervisor(
+            3,
+            name = "Tran Van V",
+            "hoangvana@gmail.com",
+            UserRole.SUPERVISOR.toString().lowercase(),
+            "08/06/2002",
+            "CT050413",
+            "PhD",
+            "CNTT"
+        )
+        val supervisor2 = Supervisor(
+            4,
+            name = "Tran Van W",
+            "hoangvana@gmail.com",
+            UserRole.SUPERVISOR.toString().lowercase(),
+            "08/06/2002",
+            "CT050413",
+            "PhD",
+            "CNTT"
+        )
         supervisors.add(supervisor)
         supervisors.add(supervisor2)
 
@@ -41,8 +80,24 @@ object FakeData {
         comments.add(comment1)
         comments.add(comment2)
 
-        val report1 = ResearcherReport(1, "Báo cáo giai đoạn 1", Date(), content = "Em xin gửi báo cáo giai đoạn 1\nNội dung đã làm xong", file = prj1Doc, supervisorComments = comments, reporter = researcher)
-        val report2 = ResearcherReport(2, "Báo cáo giai đoạn 2", Date(), content = "Em xin gửi báo cáo giai đoạn 2\nNội dung đã làm xong", file = prj1Doc, supervisorComments = comments, reporter = researcher2)
+        val report1 = ResearcherReport(
+            1,
+            "Báo cáo giai đoạn 1",
+            Date(),
+            content = "Em xin gửi báo cáo giai đoạn 1\nNội dung đã làm xong",
+            file = prj1Doc,
+            supervisorComments = comments,
+            reporter = researcher
+        )
+        val report2 = ResearcherReport(
+            2,
+            "Báo cáo giai đoạn 2",
+            Date(),
+            content = "Em xin gửi báo cáo giai đoạn 2\nNội dung đã làm xong",
+            file = prj1Doc,
+            supervisorComments = comments,
+            reporter = researcher2
+        )
         reports.add(report1)
         reports.add(report2)
 
@@ -52,27 +107,51 @@ object FakeData {
             description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
             researcher = researchers,
             supervisor = supervisors,
-            state = ProjectState.NEW,
+            state = ProjectState.IN_PROGRESS,
             documents = documents,
             reports = reports,
             score = null
-            )
+        )
 
         val prj2 = Project(
             2,
             title = "Nghiên cứu áp dụng hệ thống Recommendation System content based",
             description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-            researcher = researchers,
-            supervisor = supervisors,
-            state = ProjectState.NEW,
+            researcher = listOf(researcher),
+            supervisor = listOf(supervisor2),
+            state = ProjectState.UNDER_REVIEW,
             documents = documents,
             reports = reports,
             score = null
-            )
+        )
+
+        val prj3 = Project(
+            3,
+            title = "Nghiên cứu áp dụng hệ thống Recommendation System content based",
+            description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+            researcher = listOf(researcher2),
+            supervisor = listOf(supervisor),
+            state = ProjectState.COMPLETED,
+            documents = documents,
+            reports = reports,
+            score = 7.8f
+        )
+
+        val prj4 = Project(
+            4,
+            title = "Nghiên cứu áp dụng hệ thống Recommendation System content based",
+            description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+            researcher = listOf(researcher),
+            supervisor = listOf(supervisor),
+            state = ProjectState.COMPLETED,
+            documents = documents,
+            reports = reports,
+            score = 9f
+        )
 
         projects.add(prj1)
         projects.add(prj2)
+        projects.add(prj3)
+        projects.add(prj4)
     }
-
 }
-

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gianghv.android.databinding.ItemDocumentNoBackgroundBinding
 import com.gianghv.android.domain.Document
+import com.gianghv.android.util.ext.setHyperLink
 
 class DocumentAdapter : RecyclerView.Adapter<DocumentAdapter.ViewHolder>() {
     private val data = mutableListOf<Document>()
@@ -18,7 +19,7 @@ class DocumentAdapter : RecyclerView.Adapter<DocumentAdapter.ViewHolder>() {
     }
 
     class ViewHolder(val binding: ItemDocumentNoBackgroundBinding) : RecyclerView.ViewHolder(binding.root) {
-        companion object{
+        companion object {
             fun bind(inflater: LayoutInflater): ItemDocumentNoBackgroundBinding {
                 return ItemDocumentNoBackgroundBinding.inflate(inflater)
             }
@@ -35,5 +36,7 @@ class DocumentAdapter : RecyclerView.Adapter<DocumentAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = data[position]
+        holder.binding.textFileName.setHyperLink(item.title, item.url)
     }
 }

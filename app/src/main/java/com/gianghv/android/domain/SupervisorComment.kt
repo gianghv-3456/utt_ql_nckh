@@ -8,4 +8,4 @@ data class SupervisorComment(
     val id: Int,
     val content: String,
     val userName: String
-): Parcelable
+) : Parcelable

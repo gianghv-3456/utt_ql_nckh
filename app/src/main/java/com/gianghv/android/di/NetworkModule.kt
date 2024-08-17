@@ -36,5 +36,4 @@ object NetworkModule {
             )
             .baseUrl("")
             .client(okHttpClient).build()
-
 }

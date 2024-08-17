@@ -14,12 +14,10 @@ import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<B : ViewBinding, V : BaseViewModel> : Fragment() {
+abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     private var _binding: B? = null
     protected val binding get() = _binding!!
-
-    protected abstract val viewModel: V
 
     abstract val layoutRes: Int
 

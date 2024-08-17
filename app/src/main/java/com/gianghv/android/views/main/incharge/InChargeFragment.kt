@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gianghv.android.R
 import com.gianghv.android.base.BaseFragment
 import com.gianghv.android.databinding.FragmentInChargeBinding
-import com.gianghv.android.util.ext.getBackground
-import com.gianghv.android.util.ext.getName
+import com.gianghv.android.domain.UserRole
+import com.gianghv.android.util.ext.getStateTagBackground
+import com.gianghv.android.util.ext.getStateName
 import com.gianghv.android.util.ext.gone
 import com.gianghv.android.util.ext.show
 import com.gianghv.android.views.MainActivity
@@ -20,14 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class InChargeFragment : BaseFragment<FragmentInChargeBinding, InChargeViewModel>() {
-    override val viewModel: InChargeViewModel by viewModels()
+class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
+    private val viewModel: InChargeViewModel by viewModels()
+
+    var fabType: InChargeFAB? = null
 
     override val layoutRes: Int
         get() = R.layout.fragment_in_charge
 
     var activity: MainActivity? = null
-
 
     override fun init() {
         activity = requireActivity() as MainActivity
@@ -35,7 +37,7 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding, InChargeViewModel
 
     override fun setUp() {
         viewModel.inCharge.observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) {
+            if (it == null) {
                 binding.containerNoInCharge.show()
                 binding.containerHasInCharge.gone()
             } else {
@@ -57,7 +59,7 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding, InChargeViewModel
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setData() {
-        val data = viewModel.inCharge.value?.first()
+        val data = viewModel.inCharge.value
 
         Timber.d("data: $data")
 
@@ -65,8 +67,8 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding, InChargeViewModel
 
         binding.textTitle.text = data.title
         binding.textDescription.text = data.description
-        binding.textStatusTag.background = resources.getDrawable(data.state.getBackground())
-        binding.textStatusTag.text = data.state.getName()
+        binding.textStatusTag.background = resources.getDrawable(data.state.getStateTagBackground())
+        binding.textStatusTag.text = data.state.getStateName()
 
         val researcherAdapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, data.researcher.map { it.name })
@@ -86,5 +88,18 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding, InChargeViewModel
         binding.listReport.adapter = adapter
         binding.listReport.layoutManager = layoutManager
         adapter.setData(data.reports)
+
+        fabType = getInChargeFAB(data.state, UserRole.RESEARCHER)
+
+        if (fabType == null) {
+            binding.fab.gone()
+        } else {
+            binding.fab.show()
+            binding.fab.icon = requireContext().getDrawable(fabType!!.getIcon())
+            binding.fab.backgroundTintList = resources.getColorStateList(fabType!!.getBackgroundColor())
+            binding.fab.setTextColor(resources.getColor(fabType!!.getTextColor()))
+            binding.fab.text = fabType!!.getText()
+            binding.fab.iconTint = resources.getColorStateList(fabType!!.getTextColor())
+        }
     }
 }

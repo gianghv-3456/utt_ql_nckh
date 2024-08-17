@@ -12,8 +12,8 @@ import com.gianghv.android.views.AuthActivity
 import com.gianghv.android.views.common.AuthViewModel
 import com.gianghv.android.views.common.BGType
 
-class ExtendRegisterFragment : BaseFragment<FragmentExtendRegisterBinding, AuthViewModel>() {
-    override val viewModel: AuthViewModel by viewModels()
+class ExtendRegisterFragment : BaseFragment<FragmentExtendRegisterBinding>() {
+    val viewModel: AuthViewModel by viewModels()
 
     override val layoutRes = R.layout.fragment_extend_register
 
@@ -52,7 +52,6 @@ class ExtendRegisterFragment : BaseFragment<FragmentExtendRegisterBinding, AuthV
     }
 
     override fun initData() {
-
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater) = FragmentExtendRegisterBinding.inflate(inflater)

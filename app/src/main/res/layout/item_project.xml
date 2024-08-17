@@ -1,75 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_card"
-    android:elevation="@dimen/dp_2"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginStart="@dimen/dp_minus8"
+    android:layout_marginEnd="@dimen/dp_minus8"
+    android:background="@color/card"
+    app:cardCornerRadius="@dimen/dp_16"
+    app:cardElevation="@dimen/dp_2"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/dp_8">
 
-    <TextView
-        android:id="@+id/textTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
-        tools:text="@string/text_long_holder" />
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/divider" />
-
-    <TextView
-        android:id="@+id/textDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        tools:text="@string/text_long_holder" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
-        >
-
-        <ImageView
-            android:id="@+id/imageSupervisor"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_supervisor"
-            />
-
-        <ListView
-            android:id="@+id/listSupervisor"
-            android:layout_width="@dimen/dp_0"
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/imageSupervisor"
-            />
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            tools:text="@string/text_long_holder" />
 
-        <ImageView
-            android:id="@+id/imageResearcher"
-            android:layout_width="@dimen/dp_24"
-            android:layout_height="@dimen/dp_24"
-            android:src="@drawable/ic_supervisor"
-            android:layout_below="@id/listResearcher"
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="@color/divider" />
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="@string/text_long_holder" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
             android:layout_marginTop="@dimen/dp_16"
-            />
+            android:orientation="horizontal">
 
-        <ListView
-            android:id="@+id/listResearcher"
-            android:layout_width="@dimen/dp_0"
+            <TextView
+                android:id="@+id/textStatusTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_status_propose"
+                android:padding="@dimen/dp_10"
+                android:textStyle="bold"
+                tools:text="Under Review" />
+
+            <TextView
+                android:id="@+id/textScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="9.8/10"
+                android:layout_marginStart="@dimen/dp_16"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/imageResearcher"
-            />
+            android:layout_marginTop="@dimen/dp_16">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imageSupervisor"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_supervisor" />
 
-</LinearLayout>
+            <ListView
+                android:id="@+id/listSupervisor"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imageSupervisor"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/imageSupervisor" />
+
+            <ImageView
+                android:id="@+id/imageResearcher"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_below="@id/listSupervisor"
+                android:layout_marginTop="@dimen/dp_16"
+                android:src="@drawable/ic_researcher" />
+
+            <ListView
+                android:id="@+id/listResearcher"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listSupervisor"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_toEndOf="@id/imageResearcher" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
