@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Project(
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
     var state: ProjectState,
@@ -13,5 +13,5 @@ data class Project(
     val supervisor: List<Supervisor>,
     val documents: List<Document>,
     val reports: List<ResearcherReport>,
-    val score: Float?
+    val score: Double?
 ) : Parcelable

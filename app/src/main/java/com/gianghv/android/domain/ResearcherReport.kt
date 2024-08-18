@@ -6,7 +6,7 @@ import java.util.Date
 
 @Parcelize
 data class ResearcherReport(
-    val id: Int,
+    val id: Long,
     val title: String,
     val date: Date,
     val content: String,

@@ -7,6 +7,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp'
     id 'org.jlleitschuh.gradle.ktlint'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -139,4 +140,18 @@ dependencies {
     testImplementation Deps.junit
     androidTestImplementation Deps.androidx_junit
     androidTestImplementation Deps.espresso_core
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation "com.google.firebase:firebase-storage"
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database:21.0.0'
+
+    //Permission
+    implementation 'com.karumi:dexter:6.2.3'
+
+
+    //file picker
+    implementation 'io.github.chochanaresh:filepicker:0.1.9'
+    implementation 'com.github.mahdiasd:BottomDialogFilePicker:3.0.4'
 }

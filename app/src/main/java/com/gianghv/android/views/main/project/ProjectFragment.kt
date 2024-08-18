@@ -53,10 +53,15 @@ class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
             ProjectListFAB.NEW -> {
                 binding.fab.text = "Thêm"
             }
+
             ProjectListFAB.PROPOSED -> {
                 binding.fab.text = "Đề xuất"
             }
         }
+    }
+
+    private fun openAddProject() {
+
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater) = FragmentProjectBinding.inflate(inflater)

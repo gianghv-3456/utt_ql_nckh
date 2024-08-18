@@ -5,10 +5,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Supervisor(
-    override val id: Int,
+    override val id: Long,
     override val name: String,
     override val email: String,
-    override val role: String,
+    override val password: String,
+    override val role: UserRole,
     override val dob: String,
     val teacherCode: String,
     val title: String,
@@ -17,6 +18,7 @@ data class Supervisor(
     id,
     name,
     email,
+    password,
     role,
     dob
 ),

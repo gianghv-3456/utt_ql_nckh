@@ -6,7 +6,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-open class BaseRemoteDataSource {
+open class BaseDataSource {
 
     suspend fun <T> safeCallApi(call: suspend () -> T): Response<T> {
         return try {
@@ -22,6 +22,18 @@ open class BaseRemoteDataSource {
             Response.Error(e.message ?: AppConstants.DEFAULT_MESSAGE_ERROR)
         } catch (e: CancellationException) {
             Response.Error(e.message ?: AppConstants.DEFAULT_MESSAGE_ERROR)
+        }
+    }
+
+    protected suspend fun <R> returnResult(
+        requestBlock: suspend () -> R
+    ): DataResult<R> {
+        return try {
+            val response = requestBlock()
+            DataResult.Success(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            DataResult.Error(e)
         }
     }
 }

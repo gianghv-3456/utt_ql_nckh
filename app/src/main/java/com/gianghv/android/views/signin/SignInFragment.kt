@@ -65,6 +65,14 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 activity?.showLoading(isShow = it)
             }
         }
+
+        viewModel.userRole.observe(viewLifecycleOwner) {
+            if (it != null) {
+                AppState.userRole = it
+                AppState.logined = true
+                navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
+            }
+        }
     }
 
     override fun initData() {
@@ -109,8 +117,5 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 //                activity?.showMessage("Tài khoản không tồn tại!", BGType.BG_TYPE_ERROR)
 //            }
 //        }
-        AppState.userRole = UserRole.RESEARCHER
-        AppState.logined = true
-        navigate(SignInFragmentDirections.actionSignInFragmentToMainActivity())
     }
 }

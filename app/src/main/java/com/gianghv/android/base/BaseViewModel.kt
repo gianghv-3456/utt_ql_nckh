@@ -17,6 +17,7 @@ open class BaseViewModel : ViewModel() {
     var job: Job? = null
 
     var exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        showLoading(false)
         // show message
         handleMessage(
             message = throwable.message ?: AppConstants.DEFAULT_MESSAGE_ERROR,
