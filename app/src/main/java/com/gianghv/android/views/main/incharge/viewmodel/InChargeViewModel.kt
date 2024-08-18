@@ -30,9 +30,9 @@ class InChargeViewModel @Inject constructor(
     }
 
     fun addReport(report: ResearcherReport) {
-        runFlow(Dispatchers.IO) {
-            projectRepository.addResearcherReport(report)
-        }
+//        runFlow(Dispatchers.IO) {
+//            projectRepository.addResearcherReport(report)
+//        }
     }
 
     fun cancelProject() {

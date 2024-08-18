@@ -52,6 +52,11 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getInCharge()
+    }
+
     override fun initData() {
         viewModel.getInCharge()
     }
@@ -141,6 +146,7 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
     private fun addReport() {
         Intent(activity, AddActivity::class.java).apply {
             putExtra("type", AddActivity.TYPE_ADD_REPORT)
+            putExtra("projectId", 1)
             startActivity(this)
         }
     }

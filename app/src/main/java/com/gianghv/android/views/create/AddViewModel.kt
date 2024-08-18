@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.gianghv.android.base.BaseViewModel
 import com.gianghv.android.domain.Document
+import com.gianghv.android.domain.Project
 import com.gianghv.android.domain.Researcher
 import com.gianghv.android.domain.ResearcherReport
 import com.gianghv.android.domain.Supervisor
@@ -38,9 +39,15 @@ class AddViewModel @Inject constructor(
         _documents.value = list
     }
 
-    fun addReport(report: ResearcherReport) {
+    fun addReport(report: ResearcherReport, projectId: Int) {
         runFlow(Dispatchers.IO) {
-            projectRepository.addResearcherReport(report)
+            projectRepository.addResearcherReport(report, projectId)
+        }
+    }
+
+    fun addProject(project: Project) {
+        runFlow(Dispatchers.IO) {
+            projectRepository.addProject(project)
         }
     }
 }

@@ -14,7 +14,8 @@ interface ProjectRepository {
     suspend fun getProjectHistorySupervisor(userId: Long): Flow<List<Project>>
     suspend fun getProjectHistoryResearcher(userId: Long): Flow<List<Project>>
 
-    suspend fun addResearcherReport(report: ResearcherReport)
+    suspend fun addResearcherReport(report: ResearcherReport, projectId: Int)
+    suspend fun addProject(project: Project)
 }
 
 class ProjectRepositoryImpl : ProjectRepository {
@@ -67,7 +68,19 @@ class ProjectRepositoryImpl : ProjectRepository {
         return flowOf(result)
     }
 
-    override suspend fun addResearcherReport(report: ResearcherReport) {
-        FakeData.reports.add(report)
+    override suspend fun addResearcherReport(report: ResearcherReport, projectId: Int) {
+//        FakeData.reports.add(report)
+        val project = FakeData.projects.find { it.id.toInt() == projectId }
+//        project?.reports?.add(report)
+        val temp = project?.reports?.toMutableList()
+        temp?.add(report)
+        if (temp != null) {
+            project.reports = temp
+        }
+    }
+
+    override suspend fun addProject(project: Project) {
+        FakeData.projects.add(project)
+
     }
 }

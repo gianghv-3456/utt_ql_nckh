@@ -1,5 +1,6 @@
 package com.gianghv.android.views.main.project
 
+import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.Project
 import com.gianghv.android.util.ext.gone
 import com.gianghv.android.util.ext.show
+import com.gianghv.android.views.create.AddActivity
 import com.gianghv.android.views.main.project.adapter.ProjectListAdapter
 import com.gianghv.android.views.main.project.viewmodel.ProjectViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,9 +40,21 @@ class ProjectFragment : BaseFragment<FragmentProjectBinding>() {
                 setData(it)
             }
         }
+
+        binding.fab.setOnClickListener {
+            Intent(activity, AddActivity::class.java).apply {
+                putExtra("type", AddActivity.TYPE_ADD_PROJECT)
+                startActivity(this)
+            }
+        }
     }
 
     override fun initData() {
+        viewModel.getAllProject()
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getAllProject()
     }
 

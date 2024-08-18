@@ -13,6 +13,9 @@ import com.gianghv.android.R
 import com.gianghv.android.base.BaseActivity
 import com.gianghv.android.databinding.ActivityAddBinding
 import com.gianghv.android.domain.Document
+import com.gianghv.android.domain.Project
+import com.gianghv.android.domain.ProjectState
+import com.gianghv.android.domain.Researcher
 import com.gianghv.android.domain.ResearcherReport
 import com.gianghv.android.repository.FakeData
 import com.gianghv.android.util.app.formatDateToDDMMYYYY
@@ -157,6 +160,7 @@ class AddActivity : BaseActivity<ActivityAddBinding>() {
         super.setUp()
 
         val type = intent?.getIntExtra("type", 0)
+        val projectId = intent?.getIntExtra("projectId", 0)
         setupUI(type ?: 0)
 
         setupObserver()
@@ -164,11 +168,13 @@ class AddActivity : BaseActivity<ActivityAddBinding>() {
         binding.btnSave.setOnClickListener {
             when (type) {
                 TYPE_ADD_PROJECT -> {
-
+                    onClickAddProject()
                 }
 
                 TYPE_ADD_REPORT -> {
-                    onClickAddReport()
+                    if (projectId != null && projectId != 0) {
+                        onClickAddReport(projectId)
+                    }
                 }
             }
         }
@@ -189,7 +195,7 @@ class AddActivity : BaseActivity<ActivityAddBinding>() {
     }
 
 
-    private fun onClickAddReport() {
+    private fun onClickAddReport(projectId: Int) {
         addDocument()
 
         val title = binding.edtTitle.text.toString()
@@ -208,8 +214,43 @@ class AddActivity : BaseActivity<ActivityAddBinding>() {
             supervisorComments = emptyList(),
             reporter = FakeData.researchers[0]
         )
-        viewModel.addReport(report)
+        viewModel.addReport(report, projectId)
         showMessage("Add report successfully!", BGType.BG_TYPE_SUCCESS)
+        onBackPressed()
+    }
+
+    private fun onClickAddProject() {
+        addDocument()
+
+        val title = binding.edtTitle.text.toString()
+        val content = binding.edtContent.text.toString()
+        if (title.isEmpty() || content.isEmpty()) {
+            showMessage("Invalid input!", BGType.BG_TYPE_ERROR)
+            return
+        }
+
+        val researcherList = ArrayList<Researcher>()
+        researcherList.add(FakeData.researchers[0])
+        researcherList.add(FakeData.researchers[1])
+
+        var documents = ArrayList<Document>()
+        if (viewModel.documents.value != null){
+            documents = viewModel.documents.value as ArrayList<Document>
+        }
+
+        val project = Project(
+            genId(),
+            title,
+            content,
+            ProjectState.PROPOSED,
+            researcher = researcherList,
+            supervisor = emptyList(),
+            documents = documents,
+            reports = emptyList(),
+            score = null
+        )
+        viewModel.addProject(project)
+        showMessage("Add project successfully!", BGType.BG_TYPE_SUCCESS)
         onBackPressed()
     }
 
