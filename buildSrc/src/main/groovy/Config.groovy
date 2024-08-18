@@ -126,7 +126,7 @@ class Deps {
 
 
 class AppConfigs {
-    static final String app_name = "Room Picker"
+    static final String app_name = "QL NCKH"
     static final String app_name_dev = "$app_name-Dev"
 
     static final String application_id = "com.gianghv.android"
