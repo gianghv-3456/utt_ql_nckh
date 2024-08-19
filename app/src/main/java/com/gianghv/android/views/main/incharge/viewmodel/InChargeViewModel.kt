@@ -7,6 +7,7 @@ import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.Project
 import com.gianghv.android.domain.ProjectState
 import com.gianghv.android.domain.ResearcherReport
+import com.gianghv.android.domain.UserRole
 import com.gianghv.android.repository.ProjectRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +23,16 @@ class InChargeViewModel @Inject constructor(
 
     fun getInCharge() {
         runFlow(Dispatchers.IO) {
-            projectRepository.getInChargeResearcher(AppState.userId).collect {
-                Timber.d("get in charge $it")
-                _inCharge.postValue(it)
+            if (AppState.userRole == UserRole.RESEARCHER) {
+                projectRepository.getInChargeResearcher(AppState.userId).collect {
+                    Timber.d("get in charge $it")
+                    _inCharge.postValue(it)
+                }
+            } else {
+                projectRepository.getInChargeSupervisor(AppState.userId).collect {
+                    Timber.d("get in charge $it")
+                    _inCharge.postValue(it.firstOrNull())
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ package com.gianghv.android.views.common
 
 import androidx.lifecycle.MutableLiveData
 import com.gianghv.android.base.BaseViewModel
+import com.gianghv.android.domain.AppState
 import com.gianghv.android.domain.UserRole
 import com.gianghv.android.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ class AuthViewModel @Inject constructor(private val userRepository: UserReposito
         runFlow(Dispatchers.IO) {
             userRepository.login(userName, password).collect{
                 Timber.d("collect $it")
+                AppState.userId = it.id
                 _userRole.postValue(it.role)
             }
         }
