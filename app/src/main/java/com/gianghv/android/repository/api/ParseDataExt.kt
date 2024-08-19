@@ -184,6 +184,8 @@ fun DataSnapshot.getProject(): Project? {
 
         val score = this.child("score").value as Double?
 
+        Timber.d("project $this")
+
         return Project(
             id = id,
             title = title,
