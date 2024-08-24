@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -128,11 +131,47 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
                     cancelProject()
                 }
 
-                InChargeFAB.REVIEW -> TODO()
+                InChargeFAB.REVIEW -> {
+                    showMarkScoreDialog()
+                }
                 InChargeFAB.MARK_FINISH -> TODO()
                 null -> TODO()
             }
         }
+    }
+
+    private fun showMarkScoreDialog() {
+        // Inflate the custom dialog layout
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.score_dialog, null)
+
+        // Create an AlertDialog builder
+        val dialogBuilder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+            .setView(dialogView)
+
+        // Create and show the dialog
+        val dialog = dialogBuilder.create()
+
+        // Set up the buttons
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnSubmit.setOnClickListener {
+            val etScore = dialogView.findViewById<EditText>(R.id.etScore)
+            val score = etScore.text.toString().toIntOrNull()
+
+            if (score != null && score in 1..10) {
+                markScore(score)
+            } else {
+                Toast.makeText(requireContext(), "Invalid score entered", Toast.LENGTH_SHORT).show()
+            }
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun resumeProject() {
@@ -164,5 +203,9 @@ class InChargeFragment : BaseFragment<FragmentInChargeBinding>() {
             show()
         }
         viewModel.cancelProject()
+    }
+
+    private fun markScore(score: Int) {
+
     }
 }
